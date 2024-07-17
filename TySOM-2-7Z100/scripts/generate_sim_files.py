@@ -447,7 +447,7 @@ def replaceUnParameterizedAXIPorts(fileStrToUpdate):
     output = re.sub("__[MS]_AXI_HP[0-3]_AXLEN_WIDTH__", str(default_hp_params.axlen_width), output)
     output = re.sub("__[MS]_AXI_HP[0-3]_AXLOCK_WIDTH__", str(default_hp_params.axlock_width), output)
     
-    output = re.sub("__[MS]_AXI_[GH]P[0-3]_ENABLE__", "0", output)
+    output = re.sub("__[MS]_AXI_[GHAC]*P[0-3]*_ENABLE__", "0", output)
     
     return output
                 

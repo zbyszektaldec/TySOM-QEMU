@@ -727,9 +727,6 @@ int ADDR_WIDTH,
             /* sc_out<AXISignal(ID_WIDTH) >    */ axi2tlm_hp3->rid(     s_axi_hp3_rid     );
             /* sc_out<bool>                    */ axi2tlm_hp3->rlast(   s_axi_hp3_rlast   );
         }
-        
-        
-        
         // S AXI ACP
         //////////////
         if (S_AXI_ACP_ENABLE_G > 0) {
@@ -807,7 +804,6 @@ int ADDR_WIDTH,
             /* sc_out<AXISignal(ID_WIDTH) >    */ axi2tlm_acp->rid(     s_axi_acp_rid     );
             /* sc_out<bool>                    */ axi2tlm_acp->rlast(   s_axi_acp_rlast   );
         }
-        
 
 zynq.tie_off();
 

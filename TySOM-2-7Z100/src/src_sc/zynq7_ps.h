@@ -431,10 +431,6 @@ public:
     static const int S_AXI_ACP_ARUSER_WIDTH_G = 0;
 #endif
 
-
-
-
-
     //--------------------------------------------------------------------------------
     // Module
     //--------------------------------------------------------------------------------
@@ -1182,7 +1178,7 @@ public:
 
 
 
-// S AXI ACP Ports
+    // S AXI ACP Ports
     ////////////////////
 
     sc_in<bool>                              s_axi_acp_aclk;
@@ -1257,14 +1253,6 @@ public:
     sc_out<sc_bv<S_AXI_ACP_ID_WIDTH_G> >     s_axi_acp_rid;
     //sc_out<AXISignal(ID_WIDTH) > rid;
     sc_out<bool>                             s_axi_acp_rlast;
-
-
-
-
-
-
-
-
 
     ///////// END AXI
 
