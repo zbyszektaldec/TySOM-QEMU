@@ -63,6 +63,7 @@ entity zynq7_ps_wrapper is
         S_AXI_HP1_ENABLE_G       : integer := 0;
         S_AXI_HP2_ENABLE_G       : integer := 0;
         S_AXI_HP3_ENABLE_G       : integer := 0;
+        S_AXI_ACP_ENABLE_G       : integer := 0;
         --
         -- If the generics below change values, the constants in zynq_ps.h must
         -- be changed accordingly (because SystemC (C++) templates cannot take
@@ -114,7 +115,13 @@ entity zynq7_ps_wrapper is
         S_AXI_HP3_DATA_WIDTH_G   : integer := 64;
         S_AXI_HP3_ID_WIDTH_G     : integer := 6;
         S_AXI_HP3_AXLEN_WIDTH_G  : integer := 4;
-        S_AXI_HP3_AXLOCK_WIDTH_G : integer := 2
+        S_AXI_HP3_AXLOCK_WIDTH_G : integer := 2;
+        --
+        S_AXI_ACP_ADDR_WIDTH_G   : integer := 32;
+        S_AXI_ACP_DATA_WIDTH_G   : integer := 64;
+        S_AXI_ACP_ID_WIDTH_G     : integer := 3;
+        S_AXI_ACP_AXLEN_WIDTH_G  : integer := 4;
+        S_AXI_ACP_AXLOCK_WIDTH_G : integer := 2
         );
 
     port(
@@ -451,6 +458,48 @@ entity zynq7_ps_wrapper is
         s_axi_hp3_rresp   : out std_logic_vector(1 downto 0);
         s_axi_hp3_rid     : out std_logic_vector(S_AXI_HP3_ID_WIDTH_G-1 downto 0);
         s_axi_hp3_rlast   : out std_logic;
+        -- S AXI HP3
+        s_axi_acp_aclk    : in  std_logic := '0';
+        s_axi_acp_aresetn : in  std_logic := '0';
+        s_axi_acp_awvalid : in  std_logic := '0';
+        s_axi_acp_awready : out std_logic;
+        s_axi_acp_awaddr  : in  std_logic_vector(S_AXI_ACP_ADDR_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_awprot  : in  std_logic_vector(2 downto 0) := (others => '0');
+        s_axi_acp_awqos   : in  std_logic_vector(3 downto 0) := (others => '0');
+        s_axi_acp_awcache : in  std_logic_vector(3 downto 0) := (others => '0');
+        s_axi_acp_awburst : in  std_logic_vector(1 downto 0) := (others => '0');
+        s_axi_acp_awsize  : in  std_logic_vector(2 downto 0) := (others => '0');
+        s_axi_acp_awlen   : in  std_logic_vector(S_AXI_ACP_AXLEN_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_awid    : in  std_logic_vector(S_AXI_ACP_ID_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_awlock  : in  std_logic_vector(S_AXI_ACP_AXLOCK_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_wid     : in  std_logic_vector(S_AXI_ACP_ID_WIDTH_G-1 downto 0) := (others => '0');  -- Unconnected and unused
+        s_axi_acp_wvalid  : in  std_logic := '0';
+        s_axi_acp_wready  : out std_logic;
+        s_axi_acp_wdata   : in  std_logic_vector(S_AXI_ACP_DATA_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_wstrb   : in  std_logic_vector(S_AXI_ACP_DATA_WIDTH_G/8-1 downto 0) := (others => '0');
+        s_axi_acp_wlast   : in  std_logic := '0';
+        s_axi_acp_bvalid  : out std_logic;
+        s_axi_acp_bready  : in  std_logic := '0';
+        s_axi_acp_bresp   : out std_logic_vector(1 downto 0);
+        s_axi_acp_bid     : out std_logic_vector(S_AXI_ACP_ID_WIDTH_G-1 downto 0);
+        s_axi_acp_arvalid : in  std_logic := '0';
+        s_axi_acp_arready : out std_logic;
+        s_axi_acp_araddr  : in  std_logic_vector(S_AXI_ACP_ADDR_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_arprot  : in  std_logic_vector(2 downto 0) := (others => '0');
+        s_axi_acp_arqos   : in  std_logic_vector(3 downto 0) := (others => '0');
+        s_axi_acp_arcache : in  std_logic_vector(3 downto 0) := (others => '0');
+        s_axi_acp_arburst : in  std_logic_vector(1 downto 0) := (others => '0');
+        s_axi_acp_arsize  : in  std_logic_vector(2 downto 0) := (others => '0');
+        s_axi_acp_arlen   : in  std_logic_vector(S_AXI_ACP_AXLEN_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_arid    : in  std_logic_vector(S_AXI_ACP_ID_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_arlock  : in  std_logic_vector(S_AXI_ACP_AXLOCK_WIDTH_G-1 downto 0) := (others => '0');
+        s_axi_acp_rvalid  : out std_logic;
+        s_axi_acp_rready  : in  std_logic := '0';
+        s_axi_acp_rdata   : out std_logic_vector(S_AXI_ACP_DATA_WIDTH_G-1 downto 0);
+        s_axi_acp_rresp   : out std_logic_vector(1 downto 0);
+        s_axi_acp_rid     : out std_logic_vector(S_AXI_ACP_ID_WIDTH_G-1 downto 0);
+        s_axi_acp_rlast   : out std_logic;
+
         -- IRQs
         irq_f2p           : in  std_logic_vector(15 downto 0) := (others => '0');
         -- Reset
@@ -478,7 +527,8 @@ begin
             S_AXI_HP0_ENABLE_G       => S_AXI_HP0_ENABLE_G,
             S_AXI_HP1_ENABLE_G       => S_AXI_HP1_ENABLE_G,
             S_AXI_HP2_ENABLE_G       => S_AXI_HP2_ENABLE_G,
-            S_AXI_HP3_ENABLE_G       => S_AXI_HP3_ENABLE_G)
+            S_AXI_HP3_ENABLE_G       => S_AXI_HP3_ENABLE_G,
+            S_AXI_ACP_ENABLE_G       => S_AXI_ACP_ENABLE_G)
         port map (
             -- Clocks
             fclk_clk0          => fclk_clk0,
@@ -825,6 +875,50 @@ begin
             s_axi_hp3_rresp    => s_axi_hp3_rresp,
             s_axi_hp3_rid      => s_axi_hp3_rid,
             s_axi_hp3_rlast    => s_axi_hp3_rlast,
+
+            -- S AXI ACP
+            s_axi_acp_aclk     => s_axi_acp_aclk,
+            s_axi_acp_aresetn  => s_axi_acp_aresetn,
+            s_axi_acp_awvalid  => s_axi_acp_awvalid,
+            s_axi_acp_awready  => s_axi_acp_awready,
+            s_axi_acp_awaddr   => s_axi_acp_awaddr,
+            s_axi_acp_awprot   => s_axi_acp_awprot,
+            s_axi_acp_awregion => (others => '0'),
+            s_axi_acp_awqos    => s_axi_acp_awqos,
+            s_axi_acp_awcache  => s_axi_acp_awcache,
+            s_axi_acp_awburst  => s_axi_acp_awburst,
+            s_axi_acp_awsize   => s_axi_acp_awsize,
+            s_axi_acp_awlen    => s_axi_acp_awlen,
+            s_axi_acp_awid     => s_axi_acp_awid,
+            s_axi_acp_awlock   => s_axi_acp_awlock,
+            -- s_axi_acp_wid => s_axi_acp_wid, -- Only in AXI3 on BFM (axi2tlm-bridge)
+            s_axi_acp_wvalid   => s_axi_acp_wvalid,
+            s_axi_acp_wready   => s_axi_acp_wready,
+            s_axi_acp_wdata    => s_axi_acp_wdata,
+            s_axi_acp_wstrb    => s_axi_acp_wstrb,
+            s_axi_acp_wlast    => s_axi_acp_wlast,
+            s_axi_acp_bvalid   => s_axi_acp_bvalid,
+            s_axi_acp_bready   => s_axi_acp_bready,
+            s_axi_acp_bresp    => s_axi_acp_bresp,
+            s_axi_acp_bid      => s_axi_acp_bid,
+            s_axi_acp_arvalid  => s_axi_acp_arvalid,
+            s_axi_acp_arready  => s_axi_acp_arready,
+            s_axi_acp_araddr   => s_axi_acp_araddr,
+            s_axi_acp_arprot   => s_axi_acp_arprot,
+            s_axi_acp_arregion => (others => '0'),
+            s_axi_acp_arqos    => s_axi_acp_arqos,
+            s_axi_acp_arcache  => s_axi_acp_arcache,
+            s_axi_acp_arburst  => s_axi_acp_arburst,
+            s_axi_acp_arsize   => s_axi_acp_arsize,
+            s_axi_acp_arlen    => s_axi_acp_arlen,
+            s_axi_acp_arid     => s_axi_acp_arid,
+            s_axi_acp_arlock   => s_axi_acp_arlock,
+            s_axi_acp_rvalid   => s_axi_acp_rvalid,
+            s_axi_acp_rready   => s_axi_acp_rready,
+            s_axi_acp_rdata    => s_axi_acp_rdata,
+            s_axi_acp_rresp    => s_axi_acp_rresp,
+            s_axi_acp_rid      => s_axi_acp_rid,
+            s_axi_acp_rlast    => s_axi_acp_rlast,
             -- IRQs
             irq_f2p            => irq_f2p,
             -- Resets

@@ -61,6 +61,7 @@ entity __BD_PROCESSING_SYSTEM7_0_0_NAME__ is
         S_AXI_HP1_ENABLE_G       : integer := __S_AXI_HP1_ENABLE__;
         S_AXI_HP2_ENABLE_G       : integer := __S_AXI_HP2_ENABLE__;
         S_AXI_HP3_ENABLE_G       : integer := __S_AXI_HP3_ENABLE__;
+        S_AXI_ACP_ENABLE_G       : integer := __S_AXI_ACP_ENABLE__;
         --
         M_AXI_GP0_ADDR_WIDTH_G   : integer := __M_AXI_GP0_ADDR_WIDTH__;
         M_AXI_GP0_DATA_WIDTH_G   : integer := __M_AXI_GP0_DATA_WIDTH__;
@@ -108,7 +109,13 @@ entity __BD_PROCESSING_SYSTEM7_0_0_NAME__ is
         S_AXI_HP3_DATA_WIDTH_G   : integer := __S_AXI_HP3_DATA_WIDTH__;
         S_AXI_HP3_ID_WIDTH_G     : integer := __S_AXI_HP3_ID_WIDTH__;
         S_AXI_HP3_AXLEN_WIDTH_G  : integer := __S_AXI_HP3_AXLEN_WIDTH__;
-        S_AXI_HP3_AXLOCK_WIDTH_G : integer := __S_AXI_HP3_AXLOCK_WIDTH__
+        S_AXI_HP3_AXLOCK_WIDTH_G : integer := __S_AXI_HP3_AXLOCK_WIDTH__;
+        --
+        S_AXI_ACP_ADDR_WIDTH_G   : integer := __S_AXI_ACP_ADDR_WIDTH__;
+        S_AXI_ACP_DATA_WIDTH_G   : integer := __S_AXI_ACP_DATA_WIDTH__;
+        S_AXI_ACP_ID_WIDTH_G     : integer := __S_AXI_ACP_ID_WIDTH__;
+        S_AXI_ACP_AXLEN_WIDTH_G  : integer := __S_AXI_ACP_AXLEN_WIDTH__;
+        S_AXI_ACP_AXLOCK_WIDTH_G : integer := __S_AXI_ACP_AXLOCK_WIDTH__
         );
 """
 
@@ -126,6 +133,7 @@ architecture struct of __BD_PROCESSING_SYSTEM7_0_0_NAME__ is
     signal s_axi_hp1_aresetn_s : std_logic;
     signal s_axi_hp2_aresetn_s : std_logic;
     signal s_axi_hp3_aresetn_s : std_logic;
+    signal s_axi_acp_aresetn_s : std_logic;
 
 begin
 
@@ -149,6 +157,8 @@ begin
             S_AXI_HP1_ENABLE_G       => S_AXI_HP1_ENABLE_G,
             S_AXI_HP2_ENABLE_G       => S_AXI_HP2_ENABLE_G,
             S_AXI_HP3_ENABLE_G       => S_AXI_HP3_ENABLE_G,
+            --
+            S_AXI_ACP_ENABLE_G       => S_AXI_ACP_ENABLE_G,
             --
             M_AXI_GP0_ADDR_WIDTH_G   => M_AXI_GP0_ADDR_WIDTH_G,
             M_AXI_GP0_DATA_WIDTH_G   => M_AXI_GP0_DATA_WIDTH_G,
@@ -196,7 +206,14 @@ begin
             S_AXI_HP3_DATA_WIDTH_G   => S_AXI_HP3_DATA_WIDTH_G,
             S_AXI_HP3_ID_WIDTH_G     => S_AXI_HP3_ID_WIDTH_G,
             S_AXI_HP3_AXLEN_WIDTH_G  => S_AXI_HP3_AXLEN_WIDTH_G,
-            S_AXI_HP3_AXLOCK_WIDTH_G => S_AXI_HP3_AXLOCK_WIDTH_G)"""
+            S_AXI_HP3_AXLOCK_WIDTH_G => S_AXI_HP3_AXLOCK_WIDTH_G,
+            --
+            S_AXI_ACP_ADDR_WIDTH_G   => S_AXI_ACP_ADDR_WIDTH_G,
+            S_AXI_ACP_DATA_WIDTH_G   => S_AXI_ACP_DATA_WIDTH_G,
+            S_AXI_ACP_ID_WIDTH_G     => S_AXI_ACP_ID_WIDTH_G,
+            S_AXI_ACP_AXLEN_WIDTH_G  => S_AXI_ACP_AXLEN_WIDTH_G,
+            S_AXI_ACP_AXLOCK_WIDTH_G => S_AXI_ACP_AXLOCK_WIDTH_G)
+            """
 
 port_map = """
         port map (
@@ -214,6 +231,8 @@ end_architecture = """
     s_axi_hp1_aresetn_s <= not rst_s;
     s_axi_hp2_aresetn_s <= not rst_s;
     s_axi_hp3_aresetn_s <= not rst_s;
+    --
+    s_axi_acp_aresetn_s <= not rst_s;
     --
 
     -- Other inputs and outputs are left unconnected because they are not
@@ -281,7 +300,8 @@ end_port_map = """
 """
 
 clock_port_pattern = re.compile("FCLK_CLK[0-3]")
-axi_port_pattern = re.compile("[MS]_AXI_[GH]P[0-3]")
+#axi_port_pattern = re.compile("[MS]_AXI_[GH]P[0-3]")
+axi_port_pattern = re.compile("[MS]_AXI_[GHAC]*P[0-3]*")
 
 class DefaultAXIParameters:
     """Default AXI Parameters"""
@@ -556,7 +576,8 @@ ccomp -sc -c -o o7.o -g -I./../src/libsystemctlm-soc/libremote-port/ -I./../src/
 ccomp -sc -c -o o8.o -g -I./../src/libsystemctlm-soc/libremote-port/ -I./../src/libsystemctlm-soc/ ./../src/libsystemctlm-soc/libremote-port/remote-port-tlm-wires.cc
 
 # The main Zynq SystemC-TLM CoSimulation entity
-eval ccomp -sc -c -o o9.o -D__QEMU_SYNC_QUANTUM_G__=$env(SYNC_QUANTUM) -D__QEMU_PATH_TO_SOCKET__=$env(RPORT_PATH_SC) -D__M_AXI_GP0_ENABLE__=1 -D__M_AXI_GP0_ADDR_WIDTH__=32 -D__M_AXI_GP0_DATA_WIDTH__=32 -D__M_AXI_GP0_ID_WIDTH__=12 -D__M_AXI_GP0_AXLEN_WIDTH__=4 -D__M_AXI_GP0_AXLOCK_WIDTH__=2 -g -I./../src/libsystemctlm-soc/libremote-port/ -I./../src/libsystemctlm-soc/ -I./../src/libsystemctlm-soc/soc/xilinx/zynq/ -I./../src/src_sc -I. -I./../src/libsystemctlm-soc/tlm-bridges/ ./../src/src_sc/zynq7_ps.cc
+#eval ccomp -sc -c -o o9.o -D__QEMU_SYNC_QUANTUM_G__=$env(SYNC_QUANTUM) -D__QEMU_PATH_TO_SOCKET__=$env(RPORT_PATH_SC) -D__M_AXI_GP0_ENABLE__=1 -D__M_AXI_GP0_ADDR_WIDTH__=32 -D__M_AXI_GP0_DATA_WIDTH__=32 -D__M_AXI_GP0_ID_WIDTH__=12 -D__M_AXI_GP0_AXLEN_WIDTH__=4 -D__M_AXI_GP0_AXLOCK_WIDTH__=2 -g -I./../src/libsystemctlm-soc/libremote-port/ -I./../src/libsystemctlm-soc/ -I./../src/libsystemctlm-soc/soc/xilinx/zynq/ -I./../src/src_sc -I. -I./../src/libsystemctlm-soc/tlm-bridges/ ./../src/src_sc/zynq7_ps.cc
+eval ccomp -sc -c -o o9.o -D__QEMU_SYNC_QUANTUM_G__=$env(SYNC_QUANTUM) -D__QEMU_PATH_TO_SOCKET__=$env(RPORT_PATH_SC) [CXX_ARGS_PS7] -g -I./../src/libsystemctlm-soc/libremote-port/ -I./../src/libsystemctlm-soc/ -I./../src/libsystemctlm-soc/soc/xilinx/zynq/ -I./../src/src_sc -I. -I./../src/libsystemctlm-soc/tlm-bridges/ ./../src/src_sc/zynq7_ps.cc
 ccomp -sc o1.o o2.o o3.o o4.o o5.o o6.o o7.o o8.o o9.o -o zynq7_ps
 addsc -work xil_defaultlib zynq7_ps.so
 

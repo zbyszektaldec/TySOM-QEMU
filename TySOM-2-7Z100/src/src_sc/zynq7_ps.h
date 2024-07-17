@@ -93,6 +93,7 @@ public:
     int S_AXI_HP1_ENABLE_G = 0;
     int S_AXI_HP2_ENABLE_G = 0;
     int S_AXI_HP3_ENABLE_G = 0;
+    int S_AXI_ACP_ENABLE_G = 0;
 
     // SystemC generics are implemented as members and can therefore not be used as template parameters
     // Templates require constant (compilation time known values and can not rely on a this->my_constant
@@ -125,12 +126,12 @@ public:
 #ifdef __M_AXI_GP0_AWUSER_WIDTH__
     static const int M_AXI_GP0_AWUSER_WIDTH_G = __M_AXI_GP0_AWUSER_WIDTH__;
 #else
-    static const int M_AXI_GP0_AWUSER_WIDTH_G = 2;
+    static const int M_AXI_GP0_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __M_AXI_GP0_ARUSER_WIDTH__
     static const int M_AXI_GP0_ARUSER_WIDTH_G = __M_AXI_GP0_ARUSER_WIDTH__;
 #else
-    static const int M_AXI_GP0_ARUSER_WIDTH_G = 2;
+    static const int M_AXI_GP0_ARUSER_WIDTH_G = 0;
 #endif
 
 
@@ -162,12 +163,12 @@ public:
 #ifdef __M_AXI_GP1_AWUSER_WIDTH__
     static const int M_AXI_GP1_AWUSER_WIDTH_G = __M_AXI_GP1_AWUSER_WIDTH__;
 #else
-    static const int M_AXI_GP1_AWUSER_WIDTH_G = 2;
+    static const int M_AXI_GP1_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __M_AXI_GP1_ARUSER_WIDTH__
     static const int M_AXI_GP1_ARUSER_WIDTH_G = __M_AXI_GP1_ARUSER_WIDTH__;
 #else
-    static const int M_AXI_GP1_ARUSER_WIDTH_G = 2;
+    static const int M_AXI_GP1_ARUSER_WIDTH_G = 0;
 #endif
 
 
@@ -199,12 +200,12 @@ public:
 #ifdef __S_AXI_GP0_AWUSER_WIDTH__
     static const int S_AXI_GP0_AWUSER_WIDTH_G = __S_AXI_GP0_AWUSER_WIDTH__;
 #else
-    static const int S_AXI_GP0_AWUSER_WIDTH_G = 2;
+    static const int S_AXI_GP0_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __S_AXI_GP0_ARUSER_WIDTH__
     static const int S_AXI_GP0_ARUSER_WIDTH_G = __S_AXI_GP0_ARUSER_WIDTH__;
 #else
-    static const int S_AXI_GP0_ARUSER_WIDTH_G = 2;
+    static const int S_AXI_GP0_ARUSER_WIDTH_G = 0;
 #endif
 
 
@@ -236,12 +237,12 @@ public:
 #ifdef __S_AXI_GP1_AWUSER_WIDTH__
     static const int S_AXI_GP1_AWUSER_WIDTH_G = __S_AXI_GP1_AWUSER_WIDTH__;
 #else
-    static const int S_AXI_GP1_AWUSER_WIDTH_G = 2;
+    static const int S_AXI_GP1_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __S_AXI_GP1_ARUSER_WIDTH__
     static const int S_AXI_GP1_ARUSER_WIDTH_G = __S_AXI_GP1_ARUSER_WIDTH__;
 #else
-    static const int S_AXI_GP1_ARUSER_WIDTH_G = 2;
+    static const int S_AXI_GP1_ARUSER_WIDTH_G = 0;
 #endif
 
 
@@ -273,12 +274,12 @@ public:
 #ifdef __S_AXI_HP0_AWUSER_WIDTH__
     static const int S_AXI_HP0_AWUSER_WIDTH_G = __S_AXI_HP0_AWUSER_WIDTH__;
 #else
-    static const int S_AXI_HP0_AWUSER_WIDTH_G = 2;
+    static const int S_AXI_HP0_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __S_AXI_HP0_ARUSER_WIDTH__
     static const int S_AXI_HP0_ARUSER_WIDTH_G = __S_AXI_HP0_ARUSER_WIDTH__;
 #else
-    static const int S_AXI_HP0_ARUSER_WIDTH_G = 2;
+    static const int S_AXI_HP0_ARUSER_WIDTH_G = 0;
 #endif
 
 
@@ -310,12 +311,12 @@ public:
 #ifdef __S_AXI_HP1_AWUSER_WIDTH__
     static const int S_AXI_HP1_AWUSER_WIDTH_G = __S_AXI_HP1_AWUSER_WIDTH__;
 #else
-    static const int S_AXI_HP1_AWUSER_WIDTH_G = 2;
+    static const int S_AXI_HP1_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __S_AXI_HP1_ARUSER_WIDTH__
     static const int S_AXI_HP1_ARUSER_WIDTH_G = __S_AXI_HP1_ARUSER_WIDTH__;
 #else
-    static const int S_AXI_HP1_ARUSER_WIDTH_G = 2;
+    static const int S_AXI_HP1_ARUSER_WIDTH_G = 0;
 #endif
 
 
@@ -347,12 +348,12 @@ public:
 #ifdef __S_AXI_HP2_AWUSER_WIDTH__
     static const int S_AXI_HP2_AWUSER_WIDTH_G = __S_AXI_HP2_AWUSER_WIDTH__;
 #else
-    static const int S_AXI_HP2_AWUSER_WIDTH_G = 2;
+    static const int S_AXI_HP2_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __S_AXI_HP2_ARUSER_WIDTH__
     static const int S_AXI_HP2_ARUSER_WIDTH_G = __S_AXI_HP2_ARUSER_WIDTH__;
 #else
-    static const int S_AXI_HP2_ARUSER_WIDTH_G = 2;
+    static const int S_AXI_HP2_ARUSER_WIDTH_G = 0;
 #endif
 
 
@@ -384,13 +385,55 @@ public:
 #ifdef __S_AXI_HP3_AWUSER_WIDTH__
     static const int S_AXI_HP3_AWUSER_WIDTH_G = __S_AXI_HP3_AWUSER_WIDTH__;
 #else
-    static const int S_AXI_HP3_AWUSER_WIDTH_G = 2;
+    static const int S_AXI_HP3_AWUSER_WIDTH_G = 0;
 #endif
 #ifdef __S_AXI_HP3_ARUSER_WIDTH__
     static const int S_AXI_HP3_ARUSER_WIDTH_G = __S_AXI_HP3_ARUSER_WIDTH__;
 #else
-    static const int S_AXI_HP3_ARUSER_WIDTH_G = 2;
+    static const int S_AXI_HP3_ARUSER_WIDTH_G = 0;
 #endif
+
+
+
+#ifdef __S_AXI_ACP_ADDR_WIDTH__
+    static const int S_AXI_ACP_ADDR_WIDTH_G   = __S_AXI_ACP_ADDR_WIDTH__;
+#else
+    static const int S_AXI_ACP_ADDR_WIDTH_G   = 32;
+#endif
+#ifdef __S_AXI_ACP_DATA_WIDTH__
+    static const int S_AXI_ACP_DATA_WIDTH_G   = __S_AXI_ACP_DATA_WIDTH__;
+#else
+    static const int S_AXI_ACP_DATA_WIDTH_G   = 64;
+#endif
+#ifdef __S_AXI_ACP_ID_WIDTH__
+    static const int S_AXI_ACP_ID_WIDTH_G     = __S_AXI_ACP_ID_WIDTH__;
+#else
+    static const int S_AXI_ACP_ID_WIDTH_G     = 6;
+#endif
+#ifdef __S_AXI_ACP_AXLEN_WIDTH__
+    static const int S_AXI_ACP_AXLEN_WIDTH_G  = __S_AXI_ACP_AXLEN_WIDTH__;
+#else
+    static const int S_AXI_ACP_AXLEN_WIDTH_G  = 4;
+#endif
+#ifdef __S_AXI_ACP_AXLOCK_WIDTH__
+    static const int S_AXI_ACP_AXLOCK_WIDTH_G = __S_AXI_ACP_AXLOCK_WIDTH__;
+#else
+    static const int S_AXI_ACP_AXLOCK_WIDTH_G = 2;
+#endif
+#ifdef __S_AXI_ACP_AWUSER_WIDTH__
+    static const int S_AXI_ACP_AWUSER_WIDTH_G = __S_AXI_ACP_AWUSER_WIDTH__;
+#else
+    static const int S_AXI_ACP_AWUSER_WIDTH_G = 0;
+#endif
+#ifdef __S_AXI_ACP_ARUSER_WIDTH__
+    static const int S_AXI_ACP_ARUSER_WIDTH_G = __S_AXI_ACP_ARUSER_WIDTH__;
+#else
+    static const int S_AXI_ACP_ARUSER_WIDTH_G = 0;
+#endif
+
+
+
+
 
     //--------------------------------------------------------------------------------
     // Module
@@ -438,12 +481,11 @@ public:
                    M_AXI_GP0_ID_WIDTH_G,
                    M_AXI_GP0_AXLEN_WIDTH_G,
                    M_AXI_GP0_AXLOCK_WIDTH_G,
+                   M_AXI_GP0_AWUSER_WIDTH_G,
+                   M_AXI_GP0_ARUSER_WIDTH_G,
                    0,
                    0,
-                   0,
-                   0,
-                   0
-                    > *tlm2axi_gp0;
+                   0> *tlm2axi_gp0;
 
     // Pointer to bridge for M AXI GP1
     tlm2axi_bridge<M_AXI_GP1_ADDR_WIDTH_G,
@@ -452,7 +494,10 @@ public:
                    M_AXI_GP1_AXLEN_WIDTH_G,
                    M_AXI_GP1_AXLOCK_WIDTH_G,
                    M_AXI_GP1_AWUSER_WIDTH_G,
-                   M_AXI_GP1_ARUSER_WIDTH_G> *tlm2axi_gp1;
+                   M_AXI_GP1_ARUSER_WIDTH_G,
+                   0,
+                   0,
+                   0> *tlm2axi_gp1;
 
     // Pointer to bridge for S AXI GP0
     axi2tlm_bridge<S_AXI_GP0_ADDR_WIDTH_G,
@@ -461,7 +506,10 @@ public:
                    S_AXI_GP0_AXLEN_WIDTH_G,
                    S_AXI_GP0_AXLOCK_WIDTH_G,
                    S_AXI_GP0_AWUSER_WIDTH_G,
-                   S_AXI_GP0_ARUSER_WIDTH_G> *axi2tlm_gp0;
+                   S_AXI_GP0_ARUSER_WIDTH_G,
+                   0,
+                   0,
+                   0> *axi2tlm_gp0;
 
     // Pointer to bridge for S AXI GP1
     axi2tlm_bridge<S_AXI_GP1_ADDR_WIDTH_G,
@@ -470,7 +518,10 @@ public:
                    S_AXI_GP1_AXLEN_WIDTH_G,
                    S_AXI_GP1_AXLOCK_WIDTH_G,
                    S_AXI_GP1_AWUSER_WIDTH_G,
-                   S_AXI_GP1_ARUSER_WIDTH_G> *axi2tlm_gp1;
+                   S_AXI_GP1_ARUSER_WIDTH_G,
+                   0,
+                   0,
+                   0> *axi2tlm_gp1;
 
     // Pointer to bridge for S AXI HP0
     axi2tlm_bridge<S_AXI_HP0_ADDR_WIDTH_G,
@@ -478,8 +529,8 @@ public:
                    S_AXI_HP0_ID_WIDTH_G,
                    S_AXI_HP0_AXLEN_WIDTH_G,
                    S_AXI_HP0_AXLOCK_WIDTH_G,
-                   0,
-                   0,
+                   S_AXI_HP0_AWUSER_WIDTH_G,
+                   S_AXI_HP0_ARUSER_WIDTH_G,
                    0,
                    0,
                    0> *axi2tlm_hp0;
@@ -491,7 +542,10 @@ public:
                    S_AXI_HP1_AXLEN_WIDTH_G,
                    S_AXI_HP1_AXLOCK_WIDTH_G,
                    S_AXI_HP1_AWUSER_WIDTH_G,
-                   S_AXI_HP1_ARUSER_WIDTH_G> *axi2tlm_hp1;
+                   S_AXI_HP1_ARUSER_WIDTH_G,
+                   0,
+                   0,
+                   0> *axi2tlm_hp1;
 
     // Pointer to bridge for S AXI HP2
     axi2tlm_bridge<S_AXI_HP2_ADDR_WIDTH_G,
@@ -500,7 +554,10 @@ public:
                    S_AXI_HP2_AXLEN_WIDTH_G,
                    S_AXI_HP2_AXLOCK_WIDTH_G,
                    S_AXI_HP2_AWUSER_WIDTH_G,
-                   S_AXI_HP2_ARUSER_WIDTH_G> *axi2tlm_hp2;
+                   S_AXI_HP2_ARUSER_WIDTH_G,
+                   0,
+                   0,
+                   0> *axi2tlm_hp2;
 
     // Pointer to bridge for S AXI HP3
     axi2tlm_bridge<S_AXI_HP3_ADDR_WIDTH_G,
@@ -509,7 +566,22 @@ public:
                    S_AXI_HP3_AXLEN_WIDTH_G,
                    S_AXI_HP3_AXLOCK_WIDTH_G,
                    S_AXI_HP3_AWUSER_WIDTH_G,
-                   S_AXI_HP3_ARUSER_WIDTH_G> *axi2tlm_hp3;
+                   S_AXI_HP3_ARUSER_WIDTH_G,
+                   0,
+                   0,
+                   0> *axi2tlm_hp3;
+                   
+    // Pointer to bridge for S AXI ACP
+    axi2tlm_bridge<S_AXI_ACP_ADDR_WIDTH_G,
+                   S_AXI_ACP_DATA_WIDTH_G,
+                   S_AXI_ACP_ID_WIDTH_G,
+                   S_AXI_ACP_AXLEN_WIDTH_G,
+                   S_AXI_ACP_AXLOCK_WIDTH_G,
+                   S_AXI_ACP_AWUSER_WIDTH_G,
+                   S_AXI_ACP_ARUSER_WIDTH_G,
+                   0,
+                   0,
+                   0> *axi2tlm_acp;
 
     // M AXI GP0 Ports
     ////////////////////
@@ -1107,6 +1179,93 @@ public:
     //sc_out<AXISignal(ID_WIDTH) > rid;
     sc_out<bool>                             s_axi_hp3_rlast;
 
+
+
+
+// S AXI ACP Ports
+    ////////////////////
+
+    sc_in<bool>                              s_axi_acp_aclk;
+    sc_in<bool>                              s_axi_acp_aresetn;
+
+    /* Write address channel.  */
+    sc_in<bool>                              s_axi_acp_awvalid;
+    sc_out<bool>                             s_axi_acp_awready;
+    sc_in<sc_bv<S_AXI_ACP_ADDR_WIDTH_G> >    s_axi_acp_awaddr;
+    sc_in<sc_bv<3> >                         s_axi_acp_awprot;
+    //sc_in<sc_bv<S_AXI_ACP_AWUSER_WIDTH_G> >  s_axi_acp_awuser;
+    //sc_in<AXISignal(AWUSER_WIDTH) > awuser;
+    sc_in<sc_bv<4> >                         s_axi_acp_awregion;
+    sc_in<sc_bv<4> >                         s_axi_acp_awqos;
+    sc_in<sc_bv<4> >                         s_axi_acp_awcache;
+    sc_in<sc_bv<2> >                         s_axi_acp_awburst;
+    sc_in<sc_bv<3> >                         s_axi_acp_awsize;
+    sc_in<sc_bv<S_AXI_ACP_AXLEN_WIDTH_G> >   s_axi_acp_awlen;
+    //sc_in<AXISignal(AxLEN_WIDTH) > awlen;
+    sc_in<sc_bv<S_AXI_ACP_ID_WIDTH_G> >      s_axi_acp_awid;
+    //sc_in<AXISignal(ID_WIDTH) > awid;
+    sc_in<sc_bv<S_AXI_ACP_AXLOCK_WIDTH_G> >  s_axi_acp_awlock;
+    //sc_in<AXISignal(AxLOCK_WIDTH) > awlock;
+
+    /* Write data channel.  */
+    //sc_in<sc_bv<S_AXI_ACP_ID_WIDTH_G> >      s_axi_acp_wid;
+    //sc_in<AXISignal(ID_WIDTH) > wid;
+    sc_in<bool>                              s_axi_acp_wvalid;
+    sc_out<bool>                             s_axi_acp_wready;
+    sc_in<sc_bv<S_AXI_ACP_DATA_WIDTH_G> >    s_axi_acp_wdata;
+    sc_in<sc_bv<S_AXI_ACP_DATA_WIDTH_G/8> >  s_axi_acp_wstrb;
+    //sc_in<sc_bv<2> >                         s_axi_acp_wuser;
+    //sc_in<AXISignal(WUSER_WIDTH) > wuser;
+    sc_in<bool>                              s_axi_acp_wlast;
+
+    /* Write response channel.  */
+    sc_out<bool>                             s_axi_acp_bvalid;
+    sc_in<bool>                              s_axi_acp_bready;
+    sc_out<sc_bv<2> >                        s_axi_acp_bresp;
+    //sc_out<sc_bv<2> >                        s_axi_acp_buser;
+    //sc_out<AXISignal(BUSER_WIDTH) > buser;
+    sc_out<sc_bv<S_AXI_ACP_ID_WIDTH_G> >     s_axi_acp_bid;
+    //sc_out<AXISignal(ID_WIDTH) > bid;
+
+    /* Read address channel.  */
+    sc_in<bool>                              s_axi_acp_arvalid;
+    sc_out<bool>                             s_axi_acp_arready;
+    sc_in<sc_bv<S_AXI_ACP_ADDR_WIDTH_G> >    s_axi_acp_araddr;
+    sc_in<sc_bv<3> >                         s_axi_acp_arprot;
+    //sc_in<sc_bv<S_AXI_ACP_ARUSER_WIDTH_G> >  s_axi_acp_aruser;
+    //sc_in<AXISignal(ARUSER_WIDTH) > aruser;
+    sc_in<sc_bv<4> >                         s_axi_acp_arregion;
+    sc_in<sc_bv<4> >                         s_axi_acp_arqos;
+    sc_in<sc_bv<4> >                         s_axi_acp_arcache;
+    sc_in<sc_bv<2> >                         s_axi_acp_arburst;
+    sc_in<sc_bv<3> >                         s_axi_acp_arsize;
+    sc_in<sc_bv<S_AXI_ACP_AXLEN_WIDTH_G> >   s_axi_acp_arlen;
+    //sc_in<AXISignal(AxLEN_WIDTH) > arlen;
+    sc_in<sc_bv<S_AXI_ACP_ID_WIDTH_G> >      s_axi_acp_arid;
+    //sc_in<AXISignal(ID_WIDTH) > arid;
+    sc_in<sc_bv<S_AXI_ACP_AXLOCK_WIDTH_G> >  s_axi_acp_arlock;
+    //sc_in<AXISignal(AxLOCK_WIDTH) > arlock;
+
+    /* Read data channel.  */
+    sc_out<bool>                             s_axi_acp_rvalid;
+    sc_in<bool>                              s_axi_acp_rready;
+    sc_out<sc_bv<S_AXI_ACP_DATA_WIDTH_G> >   s_axi_acp_rdata;
+    sc_out<sc_bv<2> >                        s_axi_acp_rresp;
+    //sc_out<sc_bv<(ACE_MODE == ACE_MODE_ACE) ? 4 : 2> > rresp;
+    //sc_out<sc_bv<2> >                        s_axi_acp_ruser;
+    //sc_out<AXISignal(RUSER_WIDTH) > ruser;
+    sc_out<sc_bv<S_AXI_ACP_ID_WIDTH_G> >     s_axi_acp_rid;
+    //sc_out<AXISignal(ID_WIDTH) > rid;
+    sc_out<bool>                             s_axi_acp_rlast;
+
+
+
+
+
+
+
+
+
     ///////// END AXI
 
 
@@ -1522,6 +1681,50 @@ public:
         s_axi_hp3_rid       ("s_axi_hp3_rid"),
         s_axi_hp3_rlast     ("s_axi_hp3_rlast"),
 
+
+
+        s_axi_acp_aclk      ("s_axi_acp_aclk"),
+        s_axi_acp_aresetn   ("s_axi_acp_aresetn"),
+        s_axi_acp_awvalid   ("s_axi_acp_awvalid"),
+        s_axi_acp_awready   ("s_axi_acp_awready"),
+        s_axi_acp_awaddr    ("s_axi_acp_awaddr"),
+        s_axi_acp_awprot    ("s_axi_acp_awprot"),
+        s_axi_acp_awregion  ("s_axi_acp_awregion"),
+        s_axi_acp_awqos     ("s_axi_acp_awqos"),
+        s_axi_acp_awcache   ("s_axi_acp_awcache"),
+        s_axi_acp_awburst   ("s_axi_acp_awburst"),
+        s_axi_acp_awsize    ("s_axi_acp_awsize"),
+        s_axi_acp_awlen     ("s_axi_acp_awlen"),
+        s_axi_acp_awid      ("s_axi_acp_awid"),
+        s_axi_acp_awlock    ("s_axi_acp_awlock"),
+        s_axi_acp_wvalid    ("s_axi_acp_wvalid"),
+        s_axi_acp_wready    ("s_axi_acp_wready"),
+        s_axi_acp_wdata     ("s_axi_acp_wdata"),
+        s_axi_acp_wstrb     ("s_axi_acp_wstrb"),
+        s_axi_acp_wlast     ("s_axi_acp_wlast"),
+        s_axi_acp_bvalid    ("s_axi_acp_bvalid"),
+        s_axi_acp_bready    ("s_axi_acp_bready"),
+        s_axi_acp_bresp     ("s_axi_acp_bresp"),
+        s_axi_acp_bid       ("s_axi_acp_bid"),
+        s_axi_acp_arvalid   ("s_axi_acp_arvalid"),
+        s_axi_acp_arready   ("s_axi_acp_arready"),
+        s_axi_acp_araddr    ("s_axi_acp_araddr"),
+        s_axi_acp_arprot    ("s_axi_acp_arprot"),
+        s_axi_acp_arregion  ("s_axi_acp_arregion"),
+        s_axi_acp_arqos     ("s_axi_acp_arqos"),
+        s_axi_acp_arcache   ("s_axi_acp_arcache"),
+        s_axi_acp_arburst   ("s_axi_acp_arburst"),
+        s_axi_acp_arsize    ("s_axi_acp_arsize"),
+        s_axi_acp_arlen     ("s_axi_acp_arlen"),
+        s_axi_acp_arid      ("s_axi_acp_arid"),
+        s_axi_acp_arlock    ("s_axi_acp_arlock"),
+        s_axi_acp_rvalid    ("s_axi_acp_rvalid"),
+        s_axi_acp_rready    ("s_axi_acp_rready"),
+        s_axi_acp_rdata     ("s_axi_acp_rdata"),
+        s_axi_acp_rresp     ("s_axi_acp_rresp"),
+        s_axi_acp_rid       ("s_axi_acp_rid"),
+        s_axi_acp_rlast     ("s_axi_acp_rlast"),
+
         irq_f2p             ("irq_f2p"),
         rst_o               ("rst_o")
     {
@@ -1560,6 +1763,7 @@ public:
         register_int_parameter("S_AXI_HP1_ENABLE_G");
         register_int_parameter("S_AXI_HP2_ENABLE_G");
         register_int_parameter("S_AXI_HP3_ENABLE_G");
+        register_int_parameter("S_AXI_ACP_ENABLE_G");
 
         ////////////////////
         // AXI Interfaces //

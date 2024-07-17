@@ -47,12 +47,16 @@ void zynq7_ps::before_end_of_elaboration () {
     ///////////////////
     sc_get_param("M_AXI_GP0_ENABLE_G",M_AXI_GP0_ENABLE_G);
     sc_get_param("M_AXI_GP1_ENABLE_G",M_AXI_GP1_ENABLE_G);
+    // AXI GP Slaves
     sc_get_param("S_AXI_GP0_ENABLE_G",S_AXI_GP0_ENABLE_G);
     sc_get_param("S_AXI_GP1_ENABLE_G",S_AXI_GP1_ENABLE_G);
+    // AXI HP Slaves
     sc_get_param("S_AXI_HP0_ENABLE_G",S_AXI_HP0_ENABLE_G);
     sc_get_param("S_AXI_HP1_ENABLE_G",S_AXI_HP1_ENABLE_G);
     sc_get_param("S_AXI_HP2_ENABLE_G",S_AXI_HP2_ENABLE_G);
     sc_get_param("S_AXI_HP3_ENABLE_G",S_AXI_HP3_ENABLE_G);
+    // AXI ACP Slave
+    sc_get_param("S_AXI_ACP_ENABLE_G",S_AXI_ACP_ENABLE_G);
         // FCLK_CLK1
         if (FCLK_CLK1_PERIOD_IN_NS_G > 0) {
             fclk_clk1_gen = new sc_clock("fclk_clk1_gen", sc_time(FCLK_CLK1_PERIOD_IN_NS_G, SC_NS));
@@ -103,12 +107,11 @@ int ADDR_WIDTH,
                                              M_AXI_GP0_ID_WIDTH_G,
                                              M_AXI_GP0_AXLEN_WIDTH_G,
                                              M_AXI_GP0_AXLOCK_WIDTH_G,
-                                               0,
-                                               0,
-                                               0,
-                                               0,
-                                               0
-                                               >("tlm2axi_gp0");
+                                             M_AXI_GP0_AWUSER_WIDTH_G,
+                                             M_AXI_GP0_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0>("tlm2axi_gp0");
 
 
 
@@ -186,7 +189,10 @@ int ADDR_WIDTH,
                                              M_AXI_GP1_AXLEN_WIDTH_G,
                                              M_AXI_GP1_AXLOCK_WIDTH_G,
                                              M_AXI_GP1_AWUSER_WIDTH_G,
-                                             M_AXI_GP1_ARUSER_WIDTH_G>("tlm2axi_gp1");
+                                             M_AXI_GP1_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0>("tlm2axi_gp1");
 
             zynq.m_axi_gp[1]->bind(tlm2axi_gp1->tgt_socket);
 
@@ -262,7 +268,10 @@ int ADDR_WIDTH,
                                              S_AXI_GP0_AXLEN_WIDTH_G,
                                              S_AXI_GP0_AXLOCK_WIDTH_G,
                                              S_AXI_GP0_AWUSER_WIDTH_G,
-                                             S_AXI_GP0_ARUSER_WIDTH_G> ("axi2tlm_gp0");
+                                             S_AXI_GP0_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0> ("axi2tlm_gp0");
 
             zynq.s_axi_gp[0]->bind(axi2tlm_gp0->socket);
 
@@ -338,7 +347,10 @@ int ADDR_WIDTH,
                                              S_AXI_GP1_AXLEN_WIDTH_G,
                                              S_AXI_GP1_AXLOCK_WIDTH_G,
                                              S_AXI_GP1_AWUSER_WIDTH_G,
-                                             S_AXI_GP1_ARUSER_WIDTH_G> ("axi2tlm_gp1");
+                                             S_AXI_GP1_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0> ("axi2tlm_gp1");
 
             zynq.s_axi_gp[1]->bind(axi2tlm_gp1->socket);
 
@@ -412,11 +424,11 @@ int ADDR_WIDTH,
                                              S_AXI_HP0_ID_WIDTH_G,
                                              S_AXI_HP0_AXLEN_WIDTH_G,
                                              S_AXI_HP0_AXLOCK_WIDTH_G,
+                                             S_AXI_HP0_AWUSER_WIDTH_G,
+                                             S_AXI_HP0_ARUSER_WIDTH_G,
                                              0,
-                                               0,
-                                               0,
-                                               0,
-                                               0> ("axi2tlm_hp0");
+                                             0,
+                                             0> ("axi2tlm_hp0");
 
             zynq.s_axi_hp[0]->bind(axi2tlm_hp0->socket);
 
@@ -491,7 +503,10 @@ int ADDR_WIDTH,
                                              S_AXI_HP1_AXLEN_WIDTH_G,
                                              S_AXI_HP1_AXLOCK_WIDTH_G,
                                              S_AXI_HP1_AWUSER_WIDTH_G,
-                                             S_AXI_HP1_ARUSER_WIDTH_G> ("axi2tlm_hp1");
+                                             S_AXI_HP1_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0> ("axi2tlm_hp1");
 
             zynq.s_axi_hp[1]->bind(axi2tlm_hp1->socket);
 
@@ -566,7 +581,10 @@ int ADDR_WIDTH,
                                              S_AXI_HP2_AXLEN_WIDTH_G,
                                              S_AXI_HP2_AXLOCK_WIDTH_G,
                                              S_AXI_HP2_AWUSER_WIDTH_G,
-                                             S_AXI_HP2_ARUSER_WIDTH_G> ("axi2tlm_hp2");
+                                             S_AXI_HP2_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0> ("axi2tlm_hp2");
 
             zynq.s_axi_hp[2]->bind(axi2tlm_hp2->socket);
 
@@ -641,7 +659,10 @@ int ADDR_WIDTH,
                                              S_AXI_HP3_AXLEN_WIDTH_G,
                                              S_AXI_HP3_AXLOCK_WIDTH_G,
                                              S_AXI_HP3_AWUSER_WIDTH_G,
-                                             S_AXI_HP3_ARUSER_WIDTH_G> ("axi2tlm_hp3");
+                                             S_AXI_HP3_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0> ("axi2tlm_hp3");
 
             zynq.s_axi_hp[3]->bind(axi2tlm_hp3->socket);
 
@@ -706,6 +727,87 @@ int ADDR_WIDTH,
             /* sc_out<AXISignal(ID_WIDTH) >    */ axi2tlm_hp3->rid(     s_axi_hp3_rid     );
             /* sc_out<bool>                    */ axi2tlm_hp3->rlast(   s_axi_hp3_rlast   );
         }
+        
+        
+        
+        // S AXI ACP
+        //////////////
+        if (S_AXI_ACP_ENABLE_G > 0) {
+            axi2tlm_acp = new axi2tlm_bridge<S_AXI_ACP_ADDR_WIDTH_G,
+                                             S_AXI_ACP_DATA_WIDTH_G,
+                                             S_AXI_ACP_ID_WIDTH_G,
+                                             S_AXI_ACP_AXLEN_WIDTH_G,
+                                             S_AXI_ACP_AXLOCK_WIDTH_G,
+                                             S_AXI_ACP_AWUSER_WIDTH_G,
+                                             S_AXI_ACP_ARUSER_WIDTH_G,
+                                             0,
+                                             0,
+                                             0> ("axi2tlm_acp");
+
+            zynq.s_axi_acp->bind(axi2tlm_acp->socket);
+
+            // Note : Commented signal assignations below are connected to dummy internally (in bridge) e.g., awuser
+
+            /* Clock and Reset */
+            /* sc_in<bool>                     */ axi2tlm_acp->clk(     s_axi_acp_aclk    );
+            /* sc_in<bool>                     */ axi2tlm_acp->resetn(  s_axi_acp_aresetn );
+
+            /* Write address channel.  */
+            /* sc_in<bool>                     */ axi2tlm_acp->awvalid( s_axi_acp_awvalid );
+            /* sc_out<bool>                    */ axi2tlm_acp->awready( s_axi_acp_awready );
+            /* sc_in<sc_bv<ADDR_WIDTH> >       */ axi2tlm_acp->awaddr(  s_axi_acp_awaddr  );
+            /* sc_in<sc_bv<3> >                */ axi2tlm_acp->awprot(  s_axi_acp_awprot  );
+            /* sc_in<AXISignal(AWUSER_WIDTH) > */ //axi2tlm_acp->awuser(  s_axi_acp_awuser  );
+            /* sc_in<sc_bv<4> >                */ axi2tlm_acp->awregion(s_axi_acp_awregion);
+            /* sc_in<sc_bv<4> >                */ axi2tlm_acp->awqos(   s_axi_acp_awqos   );
+            /* sc_in<sc_bv<4> >                */ axi2tlm_acp->awcache( s_axi_acp_awcache );
+            /* sc_in<sc_bv<2> >                */ axi2tlm_acp->awburst( s_axi_acp_awburst );
+            /* sc_in<sc_bv<3> >                */ axi2tlm_acp->awsize(  s_axi_acp_awsize  );
+            /* sc_in<AXISignal(AxLEN_WIDTH) >  */ axi2tlm_acp->awlen(   s_axi_acp_awlen   );
+            /* sc_in<AXISignal(ID_WIDTH) >     */ axi2tlm_acp->awid(    s_axi_acp_awid    );
+            /* sc_in<AXISignal(AxLOCK_WIDTH) > */ axi2tlm_acp->awlock(  s_axi_acp_awlock  );
+
+            /* Write data channel.  */
+            /* sc_in<AXISignal(ID_WIDTH) >     */ //axi2tlm_acp->wid(     s_axi_acp_wid     );
+            /* sc_in<bool>                     */ axi2tlm_acp->wvalid(  s_axi_acp_wvalid  );
+            /* sc_out<bool>                    */ axi2tlm_acp->wready(  s_axi_acp_wready  );
+            /* sc_in<sc_bv<DATA_WIDTH> >       */ axi2tlm_acp->wdata(   s_axi_acp_wdata   );
+            /* sc_in<sc_bv<DATA_WIDTH/8> >     */ axi2tlm_acp->wstrb(   s_axi_acp_wstrb   );
+            /* sc_in<AXISignal(WUSER_WIDTH) >  */ //axi2tlm_acp->wuser(   s_axi_acp_wuser   );
+            /* sc_in<bool>                     */ axi2tlm_acp->wlast(   s_axi_acp_wlast   );
+
+            /* Write response channel.  */
+            /* sc_out<bool>                    */ axi2tlm_acp->bvalid(  s_axi_acp_bvalid  );
+            /* sc_in<bool>                     */ axi2tlm_acp->bready(  s_axi_acp_bready  );
+            /* sc_out<sc_bv<2> >               */ axi2tlm_acp->bresp(   s_axi_acp_bresp   );
+            /* sc_out<AXISignal(BUSER_WIDTH) > */ //axi2tlm_acp->buser(   s_axi_acp_buser   );
+            /* sc_out<AXISignal(ID_WIDTH) >    */ axi2tlm_acp->bid(     s_axi_acp_bid     );
+
+            /* Read address channel.  */
+            /* sc_in<bool>                     */ axi2tlm_acp->arvalid( s_axi_acp_arvalid );
+            /* sc_out<bool>                    */ axi2tlm_acp->arready( s_axi_acp_arready );
+            /* sc_in<sc_bv<ADDR_WIDTH> >       */ axi2tlm_acp->araddr(  s_axi_acp_araddr  );
+            /* sc_in<sc_bv<3> >                */ axi2tlm_acp->arprot(  s_axi_acp_arprot  );
+            /* sc_in<AXISignal(ARUSER_WIDTH) > */ //axi2tlm_acp->aruser(  s_axi_acp_aruser  );
+            /* sc_in<sc_bv<4> >                */ axi2tlm_acp->arregion(s_axi_acp_arregion);
+            /* sc_in<sc_bv<4> >                */ axi2tlm_acp->arqos(   s_axi_acp_arqos   );
+            /* sc_in<sc_bv<4> >                */ axi2tlm_acp->arcache( s_axi_acp_arcache );
+            /* sc_in<sc_bv<2> >                */ axi2tlm_acp->arburst( s_axi_acp_arburst );
+            /* sc_in<sc_bv<3> >                */ axi2tlm_acp->arsize(  s_axi_acp_arsize  );
+            /* sc_in<AXISignal(AxLEN_WIDTH) >  */ axi2tlm_acp->arlen(   s_axi_acp_arlen   );
+            /* sc_in<AXISignal(ID_WIDTH) >     */ axi2tlm_acp->arid(    s_axi_acp_arid    );
+            /* sc_in<AXISignal(AxLOCK_WIDTH) > */ axi2tlm_acp->arlock(  s_axi_acp_arlock  );
+
+            /* Read data channel.  */
+            /* sc_out<bool>                    */ axi2tlm_acp->rvalid(  s_axi_acp_rvalid  );
+            /* sc_in<bool>                     */ axi2tlm_acp->rready(  s_axi_acp_rready  );
+            /* sc_out<sc_bv<DATA_WIDTH> >      */ axi2tlm_acp->rdata(   s_axi_acp_rdata   );
+            /* sc_out<sc_bv<2> >               */ axi2tlm_acp->rresp(   s_axi_acp_rresp   );
+            /* sc_out<AXISignal(RUSER_WIDTH) > */ //axi2tlm_acp->ruser(   s_axi_acp_ruser   );
+            /* sc_out<AXISignal(ID_WIDTH) >    */ axi2tlm_acp->rid(     s_axi_acp_rid     );
+            /* sc_out<bool>                    */ axi2tlm_acp->rlast(   s_axi_acp_rlast   );
+        }
+        
 
 zynq.tie_off();
 
