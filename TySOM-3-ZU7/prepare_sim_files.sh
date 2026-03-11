@@ -39,5 +39,5 @@ run -all/' ./riviera/${hw_design_name}_wrapper_simulate.do
 python3 ./scripts/generate_sim_files.py  hardware/${hw_project_name}/${hw_project_name}.gen/sources_1/bd/${hw_design_name}/ip/${hw_design_name}_zynq_ultra_ps_e_0_0/${hw_design_name}_zynq_ultra_ps_e_0_0_stub.vhdl riviera/
 
 sed -i 's:vcom -work xil_defaultlib -2008 ./../src/design_1_zynq_ultra_ps_e_0_0.vhd:vcom -work xil_defaultlib -2008 ./../src/design_1_zynq_ultra_ps_e_0_0.vhd \
-vlog -sv -incr -l xilinx_vip -work work ../src/testbench.sv \
+vlog -sv -incr -l xilinx_vip -work work ../src/axi_monitor.sv \
 vcom -2008 -work work ../src/gpiotb.vhd:' ./riviera/zynq_ultra_compile_cosim.do
